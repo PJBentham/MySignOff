@@ -1,0 +1,102 @@
+* { 
+  margin: 0; 
+  padding: 1px; 
+}
+
+html {
+    display: table;
+    margin: auto;
+}
+
+#body1 {
+	padding-top: 75px;
+	width: 100%;
+	max-width: 900px;
+	display: table-cell;
+    vertical-align: middle;
+}
+
+#body1 header{
+	width: 100%;
+	text-align: center;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+header img {
+	float: left;
+	width: 100px;
+	height: 40px;
+}
+
+h4 {
+	color: grey;
+	font-size: 25px;
+	width: 100%;
+}
+
+hr {
+	color: black;
+	background-color: black;
+}
+
+p {
+	font-family: Arial, sans-serif;
+    text-align: left;
+    font-size: 20px;
+    margin: 0; 
+    padding:0;
+    margin-top: 25px;
+}
+
+input[type="text"], input[type="textarea"]{
+	width: 100%;
+	margin: 1% 0 1% 0;
+	background-color: lightblue;
+	border: solid black 1px;
+}
+
+input[type="textarea"]{
+	height: 60px;
+	background-color: #FFE4E1;
+}
+
+input[type="radio"] {
+	text-align: right;
+	width: 30px;
+	height: 20px;
+}
+
+#radiobutton{
+	font-size: 28px;
+	text-align: left;
+	display: inline;
+}
+
+input[type="submit"]{
+	width: 100%;
+	margin: 1% 0 1% 0;
+}
+
+canvas {
+	border: 1px solid black; 
+    display: block;
+    margin: auto;
+}
+#clearButton {
+	border: solid 1px black;
+	color: black;
+	background-color: lightgrey;
+	font-size: 0.8em;
+	font-family: Arial, sans-serif;
+	margin: auto;
+	margin-top: 5px;
+	width: 300px;
+	display: block;
+	text-align: center;
+	border-radius: 2px;
+	text-decoration: none !important;
+}
+div.ui-datepicker{
+		font-size:0.4em;
+}
