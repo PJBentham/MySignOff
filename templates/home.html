@@ -3,7 +3,7 @@
 {% block header %}
 {{ super() }}
 {% endblock %}
-{% block content %}	
+{% block content %}
 <div class="container">
 	<div class="row">
 		<div class="col-lg-8">
@@ -22,12 +22,14 @@
     			<li><p>Mobile! - Available on most smart phones / tablets with a modern browser.</p></li>
 			</ul>
 			<h5 class="subtitle">If you're interested in saving your business time &amp; money, enter your email below and we will be in touch very soon to see how we can help you best achieve an online sign off.</h5>
-			<form class="form-inline signup" role="form" method="POST">
-			  	<div class="form-group">
-			    	<input type="email" class="form-control" name="interestemail" placeholder="Enter your email address">
-			  	</div>
+      {% from 'macros.html' import render_field %}
+			<form class="form" method="POST" action="">
+				{{ form.hidden_tag() }}
+				{% for field in form2 %}
+					{{ render_field(field) }}
+				{% endfor %}
 			  	<button type="submit" class="btn btn-theme">Request Details</button>
-			</form>									  	
+			</form>
 		</div>
 	</div>
 </div>
@@ -50,6 +52,6 @@
         		</div>
     		</form>
 		</div>
-	</div>		
+	</div>
 </div>
  -->{% endblock %}

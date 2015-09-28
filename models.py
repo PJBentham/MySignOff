@@ -1,4 +1,4 @@
-import datetime, 
+import datetime
 
 from flask.ext.bcrypt import generate_password_hash
 from flask.ext.login import UserMixin
@@ -17,7 +17,7 @@ class User(UserMixin, Model):
 		database = DATABASE
 
 	@classmethod
-	def create_user(cls, username, email, password, admin=false):
+	def create_user(cls, username, email, password, admin=False):
 		try:
 			cls.create(
 				username=username,

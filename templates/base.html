@@ -32,34 +32,39 @@
 	        </div>
 	        <div class="navbar-collapse collapse">
 	          <ul class="nav navbar-nav navbar-left">
-				<li><a href="">Example Form</a></li>
+      				<li><a href="">Example Form</a></li>
 	            <li><a href="">Example Database</a></li>
-	            <!-- if not logged in: -->
-	            <li class="dropdown" id="menuLogin">
-		            <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navLogin">Login</a>
-		            <div class="dropdown-menu" style="padding:10px;">
-		              	<form class="form" id="formLogin"> 
-		                	<input name="username" id="username" type="text" placeholder="Username"> 
-		                	<input name="password" id="password" type="password" placeholder="Password"><br>
-		                	<button type="button" id="btnLogin" class="btn">Login</button>
-		              	</form>
-		              	<a href="">Forgot Password!</a>
-		            </div>
-		        </li>
+	            <!-- if logged in, show logout: -->
+              {% if current_user.is_authenticated() %}
+              <li><a href="">Logout</a></li>
 		        <!-- if logged in -->
-	            <li><a href="">Logout</a></li>
-	            <!-- ... -->
+              {% else %}
+              <li class="dropdown" id="menuLogin">
+                <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="navLogin">Login</a>
+                <div class="dropdown-menu" style="padding:10px;">
+                    {% from 'macros.html' import render_field %}
+                    <form class="form" method="POST" action="">
+                      {{ form.hidden_tag() }}
+                      {% for field in form %}
+                        {{ render_field(field) }}
+                      {% endfor %}
+                      <button type="button" id="btnLogin" class="btn">Login</button>
+                    </form>
+                    <a href="">Forgot Password!</a>
+                </div>
+              </li>
+  	          {% endif %}
 	          </ul>
 	        </div>
 	      </div>
 	    </div>
-	  	</header> 
+	  	</header>
 		{% endblock %}
 		{% block content %}
-		{% endblock %}       
+		{% endblock %}
 	<div class="footer">
 		{% block footer %}
-		{% endblock %}	
+		{% endblock %}
 	</div>
-	</body>	
+	</body>
 </html>
