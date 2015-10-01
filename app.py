@@ -1,6 +1,6 @@
 from flask import (Flask, g, render_template, flash, redirect, url_for)
 from flask.ext.bcrypt import check_password_hash
-from flask.ext.login import LoginManager, login_user
+from flask.ext.login import LoginManager, login_user, logout_user, login_required
 
 import forms
 import models
@@ -41,14 +41,14 @@ def index():
 	form2 = forms.InterestedForm()
 	if form.validate_on_submit():
 		try:
-			user = models.User.get(models.User.email == form.email.data)
+			user = models.User.get(models.User.email == form.username.data)
 		except models.DoesNotExist:
 			flash("Your email or password doesn't match!", "error")
 		else:
 			if check_password_hash(user.password, form.password.data):
 				login_user(user)
 				flash("You've been logged in", "success")
-				return redirect(url_for('index'))
+				return redirect(url_for('profile', username=form.username.data))
 			else:
 				flash("Your email or password doesn't match!", "error")
 	return render_template('home.html', form=form, form2=form2)
@@ -66,9 +66,23 @@ def register():
 		return redirect(url_for('index'))
 	return render_template('register.html', form=form)
 
-# @app.route('/User')
+@app.route('/logout', methods=['GET', 'POST'])
+def logout():
+	logout_user()
+	return redirect(url_for('index'))
 
-# @app.route('/User/Project')
+@app.route('/User/<username>', methods=['GET', 'POST'])
+@login_required
+def profile(username):
+	return render_template('user.html', username=username)
+
+@app.route('/User/<username>/<project>', methods=['GET', 'POST'])
+@login_required
+def project(username, project):
+	if models.User.position == "manager":
+		return render_template('table.html', username=username, project=project)
+	else:
+		return render_template('form.html', username=username=, project=project)
 
 
 if __name__ == '__main__':
