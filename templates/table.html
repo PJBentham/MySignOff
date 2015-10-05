@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}
+<!-- {{ project }} -->
+Prject Name {% endblock %}
+{% block header %}
+{{ super() }}
+{% endblock %}
+{% block content %}
+<div class="col-lg-12" style="padding-top: 75px; max-width: 900px;">
+  <table class="table sortable table-striped table-responsive table-hover table-bordered table-condensed">
+    <tr>
+      <th>File</th>
+      <th>Store Number</th>
+      <th>Date</th>
+      <th>Equipment Left Behind?</th>
+      <th>Revisit?</th>
+      <th>Fit for Trade?</th>
+      <th>Permit Received?</th>
+      <th>Suitably Dressed?</th>
+      <th>Disruption Signage?</th>
+      <th>Contacted?</th>
+      <th>WGLL?</th>
+      <th>Workplan Recieved?</th>
+      <th>Complete?</th>
+      <th>Champion?</th>
+      <th>Spares?</th>
+      <th>T-rails?</th>
+      <th>Manager Name?</th>
+      <th>Position?</th>
+      <th>Traffic Light?</th>
+    </tr>
+<!-- Add in macro for displaying table data -->
+  </table>
+</div>
+{% endblock %}
+{% block footer %}
+{% endblock %}
