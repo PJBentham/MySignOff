@@ -2,7 +2,6 @@ from flask import (Flask, g, render_template, flash, redirect, url_for)
 from flask.ext.bcrypt import check_password_hash
 from flask.ext.login import (LoginManager, login_user, logout_user,
 							login_required, current_user)
-from flask_debugtoolbar import DebugToolbarExtension
 
 import forms
 import models
@@ -14,8 +13,6 @@ HOST = '0.0.0.0'
 app = Flask(__name__)
 app.secret_key = 'kjheruieveqw7863414756___$%^'
 app.debug = True
-toolbar = DebugToolbarExtension(app)
-
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -62,11 +59,11 @@ def index():
 				flash("Your email or password doesn't match!", "error")
 	return render_template('home.html', form=form, form2=form2)
 
-@app.route('/User/<name>', methods=['GET', 'POST'])
+@app.route('/<name>/', methods=['GET', 'POST'])
 @login_required
 def profile(name):
-	projects = models.Project.get_projects(name)
-	return render_template('user.html', username=name, projects=projects)
+	projects = models.UserProject.get_userprojects(name)
+	return render_template('user.html', name=name, projects=projects)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -87,13 +84,14 @@ def logout():
 	logout_user()
 	return redirect(url_for('index'))
 
-# @app.route('/User/<username>/<project>', methods=['GET', 'POST'])
-# @login_required
-# def project(username, project):
-# 	if models.User.position == "manager":
-# 		return render_template('table.html', username=username, project=project)
-# 	else:
-# 		return render_template('form.html', username=username, project=project)
+@app.route('/<name>/<project>/', methods=['GET', 'POST'])
+@login_required
+def project(name, project):
+	projectinfo = models.Project.get_project()
+	if models.User.position == "manager":
+		return render_template('table.html', name=name, project=project, projectinfo=projectinfo)
+	else:
+		return render_template('form.html', name=name, project=project)
 
 
 if __name__ == '__main__':
@@ -106,13 +104,55 @@ if __name__ == '__main__':
 			admin=True,
 			position="manager",
 			)
-		models.Project.create_project(
+		models.UserProject.create_userproject(
 			username='paulbentham',
 			projectname='freezer'
 		)
-		models.Project.create_project(
+		models.UserProject.create_userproject(
 			username='paulbentham',
 			projectname='locker'
+		)
+		models.Project.create_project(
+			filename = 'examplefilename'
+			storenumber = '007'
+			date = '01/01/1984'
+			equipment = 'none'
+			revisit = 'NO'
+			fitfortrade = 'Yes'
+			permit = 'Yes'
+			dressed = 'Yes'
+			disruption = 'Yes'
+			contacted = 'Yes'
+			wgll = 'Yes'
+			workplan = 'Yes'
+			complete = 'Yes'
+			champion = 'Michael Jackson'
+			spares = 'None'
+			trails = 'Yes'
+			managername = 'Michael Jordan'
+			position = 'Manager'
+			trafficlight = 'Green'
+		)
+		models.Project.create_project(
+			filename = 'examplefilename'
+			storenumber = '008'
+			date = '01/01/1984'
+			equipment = 'none'
+			revisit = 'NO'
+			fitfortrade = 'Yes'
+			permit = 'Yes'
+			dressed = 'Yes'
+			disruption = 'Yes'
+			contacted = 'Yes'
+			wgll = 'Yes'
+			workplan = 'Yes'
+			complete = 'Yes'
+			champion = 'Michael Jackson'
+			spares = 'None'
+			trails = 'Yes'
+			managername = 'Michael Jordan'
+			position = 'Manager'
+			trafficlight = 'Green'
 		)
 	except ValueError:
 		pass

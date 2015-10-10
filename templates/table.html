@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 {% block title %}
-<!-- {{ project }} -->
-Prject Name {% endblock %}
+Project: {{ project }}
+{% endblock %}
 {% block header %}
 {{ super() }}
 {% endblock %}
 {% block content %}
+<h5>Project: {{ project }}</h5>
 <div class="col-lg-12" style="padding-top: 75px; max-width: 900px;">
   <table class="table sortable table-striped table-responsive table-hover table-bordered table-condensed">
     <tr>
@@ -29,7 +30,29 @@ Prject Name {% endblock %}
       <th>Position?</th>
       <th>Traffic Light?</th>
     </tr>
-<!-- Add in macro for displaying table data -->
+    {% for item in projectinfo %}
+    <tr>
+      <th>{{ item.filename }} </th>
+      <th>{{ item.storenumber }} </th>
+      <th>{{ item.date }} </th>
+      <th>{{ item.equipment }} </th>
+      <th>{{ item.revisit }} </th>
+      <th>{{ item.fitfortrade }} </th>
+      <th>{{ item.permit }} </th>
+      <th>{{ item.dressed }} </th>
+      <th>{{ item.disruption }} </th>
+      <th>{{ item.contacted }} </th>
+      <th>{{ item.wgll }} </th>
+      <th>{{ item.workplan }} </th>
+      <th>{{ item.complete }} </th>
+      <th>{{ item.champion }} </th>
+      <th>{{ item.spares }} </th>
+      <th>{{ item.trails }} </th>
+      <th>{{ item.managername }} </th>
+      <th>{{ item.position }} </th>
+      <th>{{ item.trafficlight }} </th>
+    </tr>
+    {% endfor %}
   </table>
 </div>
 {% endblock %}

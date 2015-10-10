@@ -29,7 +29,7 @@ class User(UserMixin, Model):
 		except IntegrityError:
 			raise ValueError("User already exists")
 
-class Project(Model):
+class UserProject(Model):
 	username = CharField()
 	projectname = CharField()
 
@@ -37,18 +37,7 @@ class Project(Model):
 		database = DATABASE
 
 	@classmethod
-	def get_projects(self, name):
-		projects = (Project
-				.select()
-				.where(Project.username == name))
-		return projects
-
-				# .join(UserProject)
-				# .join(User)
-
-
-	@classmethod
-	def create_project(cls, username, projectname):
+	def create_userproject(cls, username, projectname):
 		try:
 			cls.create(
 				username=username,
@@ -56,17 +45,74 @@ class Project(Model):
 		except IntegrityError:
 			raise ValueError("User already exists")
 
-class UserProject(Model):
-	user = ForeignKeyField(User)
-	project = ForeignKeyField(Project)
+	@classmethod
+	def get_userprojects(self, name):
+		projects = (UserProject
+				.select()
+				.where(UserProject.username == name))
+		return projects
+
+class Project(Model):
+	filename = CharField()
+	storenumber = CharField(unique=True)
+	date = CharField()
+	equipment = CharField()
+	revisit = CharField()
+	fitfortrade = CharField()
+	permit = CharField()
+	dressed = CharField()
+	disruption = CharField()
+	contacted = CharField()
+	wgll = CharField()
+	workplan = CharField()
+	complete = CharField()
+	champion = CharField()
+	spares = CharField()
+	trails = CharField()
+	managername = CharField()
+	position = CharField()
+	trafficlight = CharField()
 
 	class Meta:
 		database = DATABASE
-		indexes = (
-			(('user', 'project'), True)
-		)
+
+	@classmethod
+	def create_project(cls, filename, storenumber, date, equipment, revisit,
+						fitfortrade, permit, dressed, disruption, contacted,
+						wgll, workplan, complete, champion, spares, trails,
+						managername, position, trafficlight):
+		try:
+			cls.create(
+				filename = filename
+				storenumber = storenumber
+				date = date
+				equipment = equipment
+				revisit = revisit
+				fitfortrade = fitfortrade
+				permit = permit
+				dressed = dressed
+				disruption = disruption
+				contacted = contacted
+				wgll = wgll
+				workplan = workplan
+				complete = complete
+				champion = champion
+				spares = spares
+				trails = trails
+				managername = managername
+				position = position
+				trafficlight = trafficlight
+		except IntegrityError:
+			raise ValueError("Store info already recieved")
+
+		@classmethod
+		def get_project(self):
+			projectinfo = (Project
+					.select()
+					)
+			return projectinfo
 
 def initialize():
 	DATABASE.connect()
-	DATABASE.create_tables([User, Project, UserProject], safe=True)
+	DATABASE.create_tables([User, UserProject, Project], safe=True)
 	DATABASE.close()

@@ -7,9 +7,9 @@
 <div class="container">
 	<div class="row">
 		<div class="col-lg-8">
-			<h5>{{ username }}</h5>
+			<h5>{{ name }}</h5>
 			{% for project in projects %}
-			<h5>{{ project.projectname }}</h5>
+			<h5><a href="{{ url_for('project', name=name, project=project.projectname) }}">{{ project.projectname }}</a></h5>
 			{% endfor %}
 		</div>
 	</div>
